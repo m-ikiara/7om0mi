@@ -1,0 +1,32 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Tomomi: The Task Manager",
+    "version": "1.0.0",
+    "description": "A task manager for the ALX Specialization Portfolio"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Development Server"
+    }
+  ],
+  "paths": {
+    "/status": {
+      "get": {
+        "summary": "Is Tomomi okay?",
+        "description": "Confirms whether Tomomi's up and running.",
+        "responses": {
+          "200": {
+            "description": "Tomomi's alive and kickin' =-D"
+          },
+          "500": {
+            "description": "Tomomi's sick. Urgent response needed! ;-("
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": []
+}
