@@ -16,8 +16,6 @@ const injectRoutes = (app) => {
    *     responses:
    *       200:
    *         description: Tomomi's alive and kickin' =-D
-   *       500:
-   *         description: Tomomi's sick. Urgent response needed! ;-(
    */
   app.get('/status', (req, res) => AppController.getStatus(req, res));
 };

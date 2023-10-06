@@ -10,7 +10,6 @@ class AppController {
   static getStatus(req, res) {
     res.status(200).json({
       message: 'Joy! Tomomi is alive! =-D',
-      db: DBClient.isAlive,
     });
   }
 }
