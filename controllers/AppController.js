@@ -1,12 +1,17 @@
 /**
- * Ohayogozaimasu! =-D
- *
- * This will be where the App's Controls will
- * go.
+ * AppController handles Tomomi's Overall functionality.
+ * @class
  */
-const DBClient = require('../utils/db');
-
 class AppController {
+  /**
+   * Get the status of the application.
+   *
+   * @static
+   * @function
+   * @param {Object} req - A request object.
+   * @param {Object} res - A response object.
+   * @returns {void}
+   */
   static getStatus(req, res) {
     res.status(200).json({
       message: 'Joy! Tomomi is alive! =-D',

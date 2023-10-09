@@ -16,8 +16,12 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['jest'],
+  plugins: ['jest', 'jsdoc'],
   rules: {
+    'linebreak-style': [
+      'error',
+      'windows',
+    ],
     'max-classes-per-file': 'off',
     'no-underscore-dangle': 'off',
     'no-console': 'off',
@@ -28,10 +32,14 @@ module.exports = {
       'WithStatement',
     ],
   },
-  overrides:[
+  overrides: [
     {
-      files: ['*.js'],
-      excludedFiles: 'babel.config.js',
-    }
-  ]
+      files: [
+        '*.js',
+      ],
+      excludedFiles: [
+        'babel.config.js',
+      ],
+    },
+  ],
 };
