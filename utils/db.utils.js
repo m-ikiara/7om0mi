@@ -15,7 +15,8 @@ const dbClient = {
     try {
       this.colors = ['\x1b[31m', '\x1b[34m', '\x1b[33m', '\x1b[0m'];
       this.confirmation = `Connected to ${Config.database} at ${Config.db_host} on port ${Config.db_port}... =-D`,
-      this.mongod = await MongoMemoryServer.create();
+
+      this.mongod = await MongoMemoryServer.create({ instance: { dbPath: './data/db' } });
       const getUri = this.mongod.getUri();
 
       await mongoose.set('strictQuery', true);
