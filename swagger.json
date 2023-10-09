@@ -22,6 +22,43 @@
           }
         }
       }
+    },
+    "/register": {
+      "post": {
+        "summary": "Joy! New friend! =-)",
+        "description": "Performs new User registration.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "User's email."
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "User's password."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "New User joined the party =-D"
+          },
+          "400": {
+            "description": "User already joined the party...are you, uoy? XD"
+          },
+          "500": {
+            "description": "Tomomi's sick! Fix coming ASAP! ;-("
+          }
+        }
+      }
     }
   },
   "components": {},
