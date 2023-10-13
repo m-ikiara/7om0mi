@@ -26,39 +26,21 @@ const startServer = (app) => {
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(specs));
 
   process.on('SIGINT' || 'SIGBREAK' || 'SIGKILL', async () => {
-    rl.question('Waaaaah? Wanna exit? (y/n): ', async (ans) => {
-      switch (ans.toLowerCase()) {
-        case 'y':
-          try {
-            console.log('Shutting down...');
-            await dbClient.disconnect();
-          } catch (err) {
-            console.log('Oh no! Tomomi!', err);
-          }
-          console.log('Sayonara! ;-(');
-          process.exit(0);
-          break;
-
-        case 'n':
-          console.log('Let\'s continue on... >=-]');
-          rl.close();
-          break;
-
-        default:
-          console.log('Maybe a mouse slip? XD');
-          rl.close();
-          break;
-      };
-    });
+    try {
+      console.log('Bai Bai! XD');
+      await dbClient.disconnect();
+      process.exit(0);
+    } catch(err) {
+      console.error('Oh no! Tomomi! X(\n    ', err);
+    }
   });
 
-  Welcome.greetUser();
   dbClient.connect().then(() => {
     app.listen(Config.port, () => {
       Welcome.beautifyMsg(Welcome.msg[1]);
     });
   }).catch((err) => {
-    console.error(`Oh no! Tomomi! X(\n\t${err}`);
+    console.error(`Oh no! Tomomi! X(\n    ${err}`);
   });
 };
 

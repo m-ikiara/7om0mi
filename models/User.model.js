@@ -32,6 +32,10 @@ const userSchema = new mongoose.Schema({
       'UwU enter your password =-)',
     ],
   },
+  regId: {
+    type: String,
+    required: true,
+  },
   isVerified: {
     type: Boolean,
     default: false,

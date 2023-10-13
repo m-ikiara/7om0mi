@@ -9,7 +9,6 @@ const mongoose = require('mongoose');
  *
  * @typedef {Object} Token
  * @property {string} token - New Token. This field is required.
- * @property {string} tokenType - Token type. This field is required.
  * @property {string} userId - User UUID. This field is required.
  * @property {Date} createdAt - Time of Token creation.
  */
@@ -30,23 +29,15 @@ const tokenSchema = new mongoose.Schema({
     enum: [
       'registration',
       'login',
-      'reset',
+      'read',
+      'update',
+      'deletion',
     ],
-    required: [
-      true,
-      'Sowwy, not a token type ;-[',
-    ],
+    default: 'registration',
+    required: true,
   },
   userId: {
     type: String,
-    required: [
-      true,
-      'Are you real? :-)',
-    ],
-    unique: [
-      true,
-      'You aren\'t real! ;-(',
-    ],
   },
   createdAt: {
     type: Date,

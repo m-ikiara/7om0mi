@@ -6,10 +6,12 @@
 const express = require('express');
 const startServer = require('./utils/server.utils');
 const injectRoutes = require('./routes/index');
+const Welcome = require('./utils/welcome.utils');
 
 const tomomi = express();
 
 try {
+  Welcome.greetUser();
   startServer(tomomi);
   injectRoutes(tomomi);
 } catch (err) {
