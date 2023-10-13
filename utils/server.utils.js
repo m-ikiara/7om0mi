@@ -3,13 +3,17 @@
  * @author Brian M'Ikiara <https://github.com/brian-ikiara>
  */
 const express = require('express');
+const { createInterface } = require('readline');
 const swaggerUi = require('swagger-ui-express');
 const Config = require('./config.utils');
 const dbClient = require('./db.utils');
 const specs = require('../swaggerConfig');
+const Welcome = require('./welcome.utils');
 
-const colors = ['\x1b[31m', '\x1b[34m', '\x1b[33m', '\x1b[0m'];
-const confirmation = `Let's go!!! Tomomi servin' on port ${Config.port}`;
+const rl = createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
 /**
  * startServer initiates a Express server instance
@@ -18,16 +22,40 @@ const confirmation = `Let's go!!! Tomomi servin' on port ${Config.port}`;
  * @returns {void}
  */
 const startServer = (app) => {
-  app.use(express.json({ limit: '200mb' }));
+  app.use(express.json());
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(specs));
 
+  process.on('SIGINT' || 'SIGBREAK' || 'SIGKILL', async () => {
+    rl.question('Waaaaah? Wanna exit? (y/n): ', async (ans) => {
+      switch (ans.toLowerCase()) {
+        case 'y':
+          try {
+            console.log('Shutting down...');
+            await dbClient.disconnect();
+          } catch (err) {
+            console.log('Oh no! Tomomi!', err);
+          }
+          console.log('Sayonara! ;-(');
+          process.exit(0);
+          break;
+
+        case 'n':
+          console.log('Let\'s continue on... >=-]');
+          rl.close();
+          break;
+
+        default:
+          console.log('Maybe a mouse slip? XD');
+          rl.close();
+          break;
+      };
+    });
+  });
+
+  Welcome.greetUser();
   dbClient.connect().then(() => {
     app.listen(Config.port, () => {
-      for (let i = 0; i < confirmation.length; i++) { // eslint-disable-line no-plusplus
-        const color = colors[i % colors.length];
-        process.stdout.write(`${color}${confirmation[i]}`);
-      }
-      process.stdout.write('\n');
+      Welcome.beautifyMsg(Welcome.msg[1]);
     });
   }).catch((err) => {
     console.error(`Oh no! Tomomi! X(\n\t${err}`);

@@ -5,34 +5,39 @@
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const Config = require('./config.utils');
+const Welcome = require('./welcome.utils');
 
 /**
  * dbClient handles connection to MongoDB
  * @typedef {Object} dbClient
  */
 const dbClient = {
+  mongod:  null,
+  /**
+   * connect Extablishes a connection to MongoDB Mem
+   * @function
+   * @returns {Object} db - The connection
+   */
   async connect() {
     try {
-      this.colors = ['\x1b[31m', '\x1b[34m', '\x1b[33m', '\x1b[0m'];
-      this.confirmation = `Connected to ${Config.database} at ${Config.db_host} on port ${Config.db_port}... =-D`,
+      this.mongod = new MongoMemoryServer({
+        instance: {
+          dbPath: './data/db',
+        },
+      });
+      await this.mongod.start();
+      const mongoUri = `mongodb://${Config.db_host}:${Config.db_port}/${Config.database}`;
 
-      this.mongod = await MongoMemoryServer.create({ instance: { dbPath: './data/db' } });
-      const getUri = this.mongod.getUri();
-
-      await mongoose.set('strictQuery', true);
-      this.db = await mongoose.connect(getUri, {
+      mongoose.set('strictQuery', true);
+      this.db = await mongoose.connect(mongoUri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
-      
-      for (let i = 0; i < this.confirmation.length; i++) { // eslint-disable-line no-plusplus
-        const color = this.colors[i % this.colors.length];
-        process.stdout.write(`${color}${this.confirmation[i]}`);
-      }
-      process.stdout.write('\n');
+      Welcome.beautifyMsg(Welcome.msg[2]);
+      Welcome.beautifyMsg(Welcome.msg[0]);
       return this.db;
     } catch (err) {
-      console.error(`Oh no! Tomomi! X(\n\t`, err);
+      console.error('Oh no! Tomomi! X(\n  ', err);
     }
   },
   /**
@@ -41,8 +46,19 @@ const dbClient = {
    * @returns {boolean} The connection status
    */
   isAlive() {
-    return this.connection.readyState === 1;
+    return this.db && this.connection.readyState === 1;
   },
-}
+  /**
+   * disconnect Terminates connection to MongoDB MemServer
+   * @function
+   * @returns {void}
+   */
+  async disconnect() {
+    if (this.mongod) {
+      await mongoose.connection.close();
+      await this.mongod.stop();
+    }
+  },
+};
 
 module.exports = dbClient;

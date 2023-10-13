@@ -8,17 +8,17 @@ const User = require('../models/User.model');
  * AuthController manages all AuthOps.
  * @class
  */
-class AuthController {
+const AuthController = {
   /**
    * Verifies a Login.
    *
-   * @static
    * @function
    * @param {Object} req - A request object.
    * @param {Object} res - A response object.
+   * @param {@callable} next - Point to the next function.
    * @returns {Promise}
    */
-  static async verifyLogin(req, res, next) {
+  async verifyLogin(req, res, next) {
     try {
       const { email, password } = req.body;
       if (!email || !password) res.status(401).json({ error: 'Nuh-uh! Did someone forget their login? =-D' });
@@ -36,8 +36,7 @@ class AuthController {
       console.error(err);
       res.status(500).json({ error: 'Oh no! Tomomi! X(' });
     }
-  }
-
+  },
   /**
    * verifyToken Verifies a JWT.
    *
@@ -45,11 +44,11 @@ class AuthController {
    * @function
    * @param {Object} req - A request object.
    * @param {Object} res - A response object.
-   * @param {@callable} next - Point to next function.
+   * @param {@callable} next - Point to the next function.
    * @returns {Promise}
    */
-  static async verifyToken(req, res, next) {
-    const authToken = req.body.authorization;
+  async verifyToken(req, res, next) {
+    const authToken = req.headers.authorization;
     if (!authToken) res.status(401).json({ error: 'Were you really invited to the party? =-[' });
     const token = authToken.replace('Bearer', '');
     try {

@@ -36,10 +36,12 @@
                 "properties": {
                   "email": {
                     "type": "string",
+                    "default": "dog@butter.com",
                     "description": "User's email."
                   },
                   "password": {
                     "type": "string",
+                    "default": "g1G4n!gg3r69",
                     "description": "User's password."
                   }
                 }
@@ -48,14 +50,87 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "New User joined the party =-D"
           },
           "400": {
             "description": "User already joined the party...are you, uoy? XD"
           },
           "500": {
-            "description": "Tomomi's sick! Fix coming ASAP! ;-("
+            "description": "Oh no! Tomomi! X("
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Welcome back friend! =-D",
+        "description": "Performs a User login session.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "User's email.",
+                    "default": "dog@butter.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "User's password.",
+                    "default": "g1G4n!gg3r69"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Welcome back to the party! =-D"
+          },
+          "401": {
+            "description": "Oh nein! Not invited to the party... =-("
+          },
+          "404": {
+            "description": "Not invited! Register first! =-["
+          },
+          "500": {
+            "description": "Oh no! Tomomi! X("
+          }
+        }
+      }
+    },
+    "/users/:userId/delete_account": {
+      "delete": {
+        "summary": "Sad to see you leave... Sayonara ;-{",
+        "description": "Performs a User login session.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "userId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sad to see you go. Sayonara... ;-{"
+          },
+          "401": {
+            "description": "Whatchudoin\\'? Is someone being bad? >=-["
+          },
+          "404": {
+            "description": "Aaah! Not in the reservation list! =-O"
+          },
+          "500": {
+            "description": "Oh no! Tomomi! X("
           }
         }
       }
