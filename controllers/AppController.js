@@ -2,7 +2,7 @@
  * AppController handles Tomomi's Overall functionality.
  * @class
  */
-class AppController {
+const AppController = {
   /**
    * Get the status of the application.
    *
@@ -12,7 +12,7 @@ class AppController {
    * @param {Object} res - A response object.
    * @returns {void}
    */
-  static getStatus(req, res) {
+  getStatus(req, res) {
     res.status(200).json({
       message: 'Joy! Tomomi is alive! =-D',
     });

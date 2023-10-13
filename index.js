@@ -10,8 +10,8 @@ const injectRoutes = require('./routes/index');
 const tomomi = express();
 
 try {
-  injectRoutes(tomomi);
   startServer(tomomi);
+  injectRoutes(tomomi);
 } catch (err) {
   console.error(`Oh no! Tomomi! X(\n\tReason: ${err}`);
 }

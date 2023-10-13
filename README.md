@@ -1,6 +1,7 @@
 # Tomomi: The Task Manager
 
 <div align="center">
+    <img src="./assets/img/Tomomi-chan.png" style="width:100%" alt="Tomomi desu, douzoyoroshiku!" />
     <a href="https://git.io/typing-svg">
         <img src="https://readme-typing-svg.demolab.com?font=Monofur+Nerd+Font&pause=1000&width=435&lines=...unexpected+happiness+found+in+her..." alt="Tomomi Tagline =-D" />
     </a>
