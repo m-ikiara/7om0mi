@@ -4,12 +4,14 @@
  * This is where we start Tomomi. So cool! =-)
  */
 const express = require('express');
-const startServer = require('./utils/server.utils');
 const injectRoutes = require('./routes/index');
+const startServer = require('./utils/server.util');
+const Welcome = require('./utils/welcome.util');
 
 const tomomi = express();
 
 try {
+  Welcome.greetUser();
   startServer(tomomi);
   injectRoutes(tomomi);
 } catch (err) {
