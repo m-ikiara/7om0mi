@@ -2,8 +2,9 @@
  * Ohayogozaimasu! =-D
  * @author Brian M'Ikiara <https://github.com/brian-ikiara>
  */
-const appRoutes = require('./app.routes');
-const userRoutes = require('./users.routes');
+const appRoutes = require('./app.route');
+const userRoutes = require('./users.route');
+const taskRoutes = require('./tasks.route');
 
 /**
  * injectRoutes Adds All routes to the Server instance
@@ -12,8 +13,9 @@ const userRoutes = require('./users.routes');
  * @returns {void}
  */
 const injectRoutes = (app) => {
-  app.use('/app', appRoutes);
-  app.use('/users', userRoutes);
+  app.use('/api/app', appRoutes);
+  app.use('/api/users', userRoutes);
+  app.use('/api/tasks', taskRoutes);
 };
 
 module.exports = injectRoutes;

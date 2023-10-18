@@ -4,8 +4,8 @@
  */
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const Config = require('./config.utils');
-const Welcome = require('./welcome.utils');
+const Config = require('./config.util');
+const Welcome = require('./welcome.util');
 
 /**
  * dbClient handles connection to MongoDB

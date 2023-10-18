@@ -1,4 +1,8 @@
 /**
+ * Ohayogozaimasu! =-D
+ * @author Brian M'Ikiara <https://github.com/brian-ikiara>
+ */
+/**
  * AppController handles Tomomi's Overall functionality.
  * @class
  */
@@ -16,7 +20,7 @@ const AppController = {
     res.status(200).json({
       message: 'Joy! Tomomi is alive! =-D',
     });
-  }
-}
+  },
+};
 
 module.exports = AppController;

@@ -4,7 +4,7 @@
  */
 const { readFileSync } = require('fs');
 const { image } = require('ascii-art');
-const Config = require('./config.utils');
+const Config = require('./config.util');
 /**
  * Welcome Welcomes a user to Tomomi's CLI.
  * @typedef {Object} welcomeUser

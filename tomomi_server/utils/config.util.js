@@ -27,6 +27,7 @@ const Config = {
   db_host: process.env.TOMOMI_DB_HOST || '127.0.0.1',
   db_port: process.env.TOMOMI_DB_PORT || 27017,
   database: process.env.TOMOMI_DATABASE || 'ohayo_tomomi_desu',
+  environment: process.env.NODE_ENV || 'development',
   jwt_secret: process.env.TOMOMI_JWT || '+VBOZ4AQxv0c4mfQgCJlMpQhIVcp1aCrXA30WSVGuS/bh0ff7rkpoBWgoyUznLFP2G/jdZ6A+JQcXjMkBFOh8A==',
 };
 
