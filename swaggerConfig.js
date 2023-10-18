@@ -16,7 +16,7 @@ const options = {
     ],
   },
   apis: [
-    './routes/*.js',
+    './tomomi_server/routes/*.js',
   ],
 };
 

@@ -12,7 +12,7 @@
     }
   ],
   "paths": {
-    "/status": {
+    "/api/app/status": {
       "get": {
         "summary": "Is Tomomi okay?",
         "description": "Confirms whether Tomomi's up and running.",
@@ -23,7 +23,44 @@
         }
       }
     },
-    "/register": {
+    "/api/tasks/create/{id}": {
+      "post": {
+        "summary": "So...whatchu wanna do today? =-D",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Task"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Joy! New Task! =-D"
+          },
+          "401": {
+            "description": "Nay! No Task for you! >=-("
+          },
+          "500": {
+            "description": "Oh no! Tomomi! X("
+          }
+        }
+      }
+    },
+    "/api/users/register": {
       "post": {
         "summary": "Joy! New friend! =-)",
         "description": "Performs new User registration.",
@@ -62,7 +99,7 @@
         }
       }
     },
-    "/login": {
+    "/api/users/login": {
       "post": {
         "summary": "Welcome back friend! =-D",
         "description": "Performs a User login session.",
@@ -104,14 +141,14 @@
         }
       }
     },
-    "/users/:userId/delete_account": {
+    "/api/users/delete/{regId}": {
       "delete": {
         "summary": "Sad to see you leave... Sayonara ;-{",
         "description": "Performs a User login session.",
         "parameters": [
           {
             "in": "path",
-            "name": "userId",
+            "name": "regId",
             "required": true,
             "schema": {
               "type": "string"
@@ -136,6 +173,47 @@
       }
     }
   },
-  "components": {},
+  "components": {
+    "schemas": {
+      "Task": {
+        "type": "object",
+        "properties": {
+          "taskName": {
+            "type": "string"
+          },
+          "taskDesc": {
+            "type": "string"
+          },
+          "taskPriority": {
+            "type": "string",
+            "enum": [
+              "low",
+              "mid",
+              "high"
+            ],
+            "default": "low"
+          },
+          "taskStatus": {
+            "type": "string",
+            "enum": [
+              "to do",
+              "in progress",
+              "completed"
+            ],
+            "default": "to do"
+          },
+          "taskLabels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "userId": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
   "tags": []
 }
