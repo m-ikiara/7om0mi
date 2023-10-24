@@ -137,7 +137,7 @@ router.route('/create/:regId')
  * @swagger
  * paths:
  *   /api/tasks/update/{id}:
- *     put:
+ *     patch:
  *       summary: So...whatchu wanna do differently? =-D
  *       parameters:
  *         -  in: path
@@ -161,7 +161,7 @@ router.route('/create/:regId')
  *           description: Oh no! Tomomi! X(
  */
 router.route('/update/:id')
-  .put((req, res) => {
+  .patch((req, res) => {
     console.log(`Updating a Task for User ${req.params.id}... =-D`);
     TasksController.getAllTasks(req, res)
       .then(() => {

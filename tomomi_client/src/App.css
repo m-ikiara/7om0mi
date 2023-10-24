@@ -1,3 +1,9 @@
+/*
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*/
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,6 +11,10 @@
   text-align: center;
 }
 
+.NavBar {
+  width:100%;
+}
+/*
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -40,3 +50,4 @@
 .read-the-docs {
   color: #888;
 }
+*/
