@@ -180,7 +180,7 @@ router.route('/get/:regId')
 /**
  * @swagger
  * /api/users/update/{regId}:
- *   put:
+ *   patch:
  *     summary: Waaah? You wanna change who you are? =-O
  *     description: Allows User to update their profile.
  *     parameters:
@@ -215,7 +215,7 @@ router.route('/get/:regId')
  *         description: Oh no! Tomomi! X(
  */
 router.route('/update/:regId')
-  .put((req, res) => {
+  .patch((req, res) => {
     console.log(`Updating User ${req.params.regId}... =-D`);
     UsersController.updateUser(req, res)
       .then(() => {

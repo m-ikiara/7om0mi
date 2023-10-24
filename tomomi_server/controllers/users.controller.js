@@ -68,7 +68,7 @@ const UsersController = {
       if (!regUser) res.status(404).json({ error: 'Oh nein! Not invited to the party... =-(' });
       if (!(await compare(password, regUser.password))) res.status(401).json({ error: 'Try double-checking your login... =-[' });
       res.status(200).json({
-        user: regUser.regId,
+        // user: regUser.regId,
         message: 'Welcome back to the party! =-D',
       });
       genToken(res, regUser.regId, 'login');
