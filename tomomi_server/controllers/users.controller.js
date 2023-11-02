@@ -36,6 +36,7 @@ const UsersController = {
         regId: newUserId,
       })
       await newUser.save();
+      await genToken(res, newUser, 'register');
       res.status(201).json(
         {
           user: {
@@ -67,11 +68,11 @@ const UsersController = {
       const regUser = await User.findOne({ email });
       if (!regUser) res.status(404).json({ error: 'Oh nein! Not invited to the party... =-(' });
       if (!(await compare(password, regUser.password))) res.status(401).json({ error: 'Try double-checking your login... =-[' });
+      await genToken(res, regUser.regId, 'login');
       res.status(200).json({
-        // user: regUser.regId,
+        user: regUser.regId,
         message: 'Welcome back to the party! =-D',
       });
-      genToken(res, regUser.regId, 'login');
     } catch (err) {
       if (err.code === 11000) res.status(400).json({ error: 'No need to check-in again, enjoy the party =-)' });
       console.error('Oh no! Tomomi! X(\n    ', err);
@@ -88,10 +89,7 @@ const UsersController = {
    * @returns {void}
    */
   async logoutUser(req, res) {
-    res.cookie('login', '', {
-      httpOnly: true,
-      expires: new Date(0),
-    });
+    res.clearCookie();
     res.status(200).json({ msg: 'Bai-bai! XD' });
   },
   /**

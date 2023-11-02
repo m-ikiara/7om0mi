@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { taskFields } from '../../constants/taskFields';
 import FormAction from '../App/FormAction';
@@ -22,22 +23,19 @@ export default function DeleteTask() {
 
   const deleteTask = () => {
     const { userId } = deleteTaskState;
-    fetch('/api/tasks/delete', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId,
-      }),
-    })
-      .then((res) => res.json())
+    axios
+      .delete('http://localhost:5000/api/tasks/delete', { userId })
+      .then((res) => {
+        console.log(res);
+        if (res.statusCode === 200) return res.data;
+      })
       .then((data) => {
         console.log(data);
         //if (!data) console.error('Oh no! Tomomi! XC\n    ', data);
         console.log('Successfully deleted a Task! =-)');
         window.location.href = '/home';
-      });
+      })
+      .catch((err) => console.error('Oh no! Tomomi! X(\n', err));
   };
 
   return (

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { signupFields } from '../../constants/signupFields';
 import FormAction from '../App/FormAction';
@@ -22,28 +23,18 @@ export default function Signup() {
 
   const createAccount = () => {
     const { username, email, password } = signupState;
-    fetch('/api/users/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-      }),
-    })
+    axios
+      .post('http://localhost:5000/api/users/register', { username, email, password })
       .then((res) => {
         console.log(res);
-        if (res.ok) res.json();
+        if (res.statusCode === 200) return res.data;
       })
       .then((data) => {
         console.log(data);
-        //if (!data) console.error('Oh no! Tomomi! XC\n    ', data);
-        console.log('Successful signup! =-)');
+        console.log('Yay! New Fwuend! =-D');
         window.location.href = '/';
       })
-      .catch((err) => console.error('Oh no! Tomomi! XC\n    ', err));
+      .catch((err) => console.error('Oh no! Tomomi! X(\n', err));
   };
 
   return (

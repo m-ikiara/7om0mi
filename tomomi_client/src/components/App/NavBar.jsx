@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Navbar, Typography } from '@material-tailwind/react';
+import { Button, Navbar, Typography } from '@material-tailwind/react';
 
 export default function NavBar() {
   const navList = (
@@ -111,6 +111,13 @@ export default function NavBar() {
           <Link to='/'>Tomomi :3</Link>
         </Typography>
         <div className='hidden lg:block'>{navList}</div>
+        <div className='flex items-center gap-x-1'>
+          <Link to='/'>
+            <Button variant='text' size='sm' className='hidden lg:inline-block'>
+              <span>Logout ?</span>
+            </Button>
+          </Link>
+        </div>
       </div>
     </Navbar>
   );
