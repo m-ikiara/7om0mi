@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { taskFields } from '../../constants/taskFields';
 import FormAction from '../App/FormAction';
@@ -20,30 +21,24 @@ export default function UpdateTask() {
     updateTask();
   };
 
-  const updateTask = () => {
+  const updateTask = (id) => {
     const { taskName, taskDesc, taskPriority, dueDate } = updateTaskState;
-    fetch('/api/tasks/update', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    axios.patch('http://localhost:5000/api/tasks/update' + id,  {
         taskName,
         taskDesc,
         taskPriority,
         dueDate,
-      }),
     })
       .then((res) => {
         console.log(res);
-        res.json();
+        if (res.statusCode === 200) return res.data;
       })
       .then((data) => {
         console.log(data);
         //if (!data) console.error('Oh no! Tomomi! XC\n    ', data);
-        console.log('Successfully updated a Task! =-)');
+        console.log('Task updated! =-D');
         window.location.href = '/home';
-      });
+      }).catch((err) => console.error('Oh no! Tomomi! XC', err);
   };
 
   return (

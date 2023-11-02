@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { loginFields } from '../../constants/loginFields';
 import FormAction from '../App/FormAction';
@@ -23,24 +24,16 @@ export default function Login() {
   const authenticateUser = () => {
     const { email, password } = loginState;
 
-    fetch('/api/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    })
+    axios
+      .post('http://localhost:5000/api/users/login', { email, password })
       .then((res) => {
         console.log(res);
-        res.json();
+        if (res.statusCode === 200) return res.data;
       })
       .then((data) => {
         console.log(data);
         //if (!data) console.error('Oh no! Tomomi! XC\n    ', data);
-        console.log('Success!');
+        console.log('Welcome back Fwuend! =-)');
         // document.cookie = `login=${data.user};`;
         window.location.href = '/home';
       })

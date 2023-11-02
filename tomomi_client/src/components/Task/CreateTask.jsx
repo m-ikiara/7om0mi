@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { taskFields } from '../../constants/taskFields';
 import FormAction from '../App/FormAction';
@@ -8,12 +9,12 @@ let fieldsState = {};
 
 fields.forEach((field) => (fieldsState[field.id] = ''));
 
-export default function TaskMan() {
+export default function CreateTask() {
   const [createTaskState, setCreateTaskState] = useState(fieldsState);
 
   const handleChange = (e) => {
     setCreateTaskState({ ...createTaskState, [e.target.id]: e.target.value });
-  }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(createTaskState);
@@ -22,28 +23,23 @@ export default function TaskMan() {
 
   const createTask = () => {
     const { taskName, taskDesc, taskPriority, dueDate } = createTaskState;
-    fetch('/api/tasks/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    axios
+      .post('http://localhost:5000/api/tasks/create', {
         taskName,
         taskDesc,
         taskPriority,
         dueDate,
-      }),
-    })
+      })
       .then((res) => {
         console.log(res);
-        res.json();
+        if (res.status === 200) return res.data;
       })
       .then((data) => {
         console.log(data);
-        //if (!data) console.error('Oh no! Tomomi! XC\n    ', data);
-        console.log('Successfully created a Task! =-)');
+        console.log('Joy! New Task! =-D');
         window.location.href = '/home';
-      });
+      })
+      .catch((err) => console.error('Oh no! Tomomi! XC\n', err));
   };
 
   return (

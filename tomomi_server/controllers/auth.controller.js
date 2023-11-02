@@ -22,7 +22,7 @@ const AuthController = {
     });
     res.cookie(name, token, {
       httpOnly: true,
-      secure: Config.environment,
+      secure: Config.environment || false,
       sameSite: 'strict',
       maxAge: 3600,
     });
