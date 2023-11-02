@@ -38,7 +38,7 @@ export default function UpdateTask() {
         //if (!data) console.error('Oh no! Tomomi! XC\n    ', data);
         console.log('Task updated! =-D');
         window.location.href = '/home';
-      }).catch((err) => console.error('Oh no! Tomomi! XC', err);
+      }).catch((err) => console.error('Oh no! Tomomi! XC', err));
   };
 
   return (
