@@ -1,0 +1,40 @@
+---
+layout: default
+---
+
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+  {%- if site.projects.size > 0 -%}
+    <h2 class="post-list-heading">{{ page.list_title | default: "Some awesome Projects" }}</h2>
+    <ul class="post-list">
+      {%- for project in site.projects -%}
+      <li>
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        <span class="post-meta">{{ project.date | date: date_format }}</span>
+        {%- if project.thumbnail -%}
+          <img src="{{ project.thumbnail | relative_url }}" alt="{{ project.title }}" class="thumbnail">
+        {%- endif -%}
+        <h3>
+          <a class="post-link" href="{{ project.url | relative_url }}">
+            {{ project.title | escape }}
+          </a>
+        </h3>
+        {%- if project.description -%}
+          <h4>{{ project.description }}</h4>
+        {%- endif -%}
+        {%- if site.show_excerpts -%}
+          {{ project.excerpt }}
+        {%- endif -%}
+      </li>
+      {%- endfor -%}
+    </ul>
+
+    <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+  {%- endif -%}
+
+</div>
